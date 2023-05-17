@@ -1,23 +1,17 @@
-
-import React, {useState} from 'react';
+import React from 'react';
+import PhotoFavButton from './PhotoFavButton';
 
 import '../styles/PhotoListItem.scss';
 
 const PhotoListItem = (props) => {
-  const { username, imageSource, id, hideUserName, likedByUser } = props;
-
-  const [ like, setLike ] = useState(likedByUser);
-
-  const toggleLike = () => setLike(like ? false : true);
+  const { username, imageSource, hideUserName, likedByUser } = props;
 
   return (
-    <article className='photo-list--item'>
+    <li className='photo-list--item'>
+      <PhotoFavButton />
       <img src={imageSource} className='photo-list--image'></img>
-      <div className='photo-list--user-profile'>
-        {hideUserName ? '' : <span>{username}</span>}
-      </div>
-      <button onClick={toggleLike}>{like ? '❤️' : '🤍' }</button>
-    </article>
+      {hideUserName ? '' : <p className='photo-list--user-profile'>{username}</p>}
+    </li>
   )
 }
 
@@ -26,7 +20,6 @@ PhotoListItem.defaultProps = {
   imageSource: `${process.env.PUBLIC_URL}/Image.jpg`,
   id: 1,
   hideUserName: false,
-  likedByUser: false
 }
 
 export default PhotoListItem
