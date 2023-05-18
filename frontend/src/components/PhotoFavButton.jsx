@@ -1,18 +1,27 @@
 import React, { useCallback, useState } from 'react';
 
-import { FavBadge } from './FavBadge';
 import { FavIcon } from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton() {
-  const [ fav, setFave ] = useState(false);
+function PhotoFavButton(props) {
+  const { id, likedPhotos, setLikedPhotos } = props;
 
-  const toggleFav = () => setFave(fav ? false : true);
+  const toggleLike = () => {
+    setLikedPhotos(prev => {
+      const newLiked = {...prev};
+      if (newLiked[id] === true) {
+        newLiked[id] = null;
+      } else {
+        newLiked[id] = true;
+      }
+      return newLiked;
+    });
+  };
 
   return (
-    <div onClick={toggleFav} className="photo-list--fav-icon">
+    <div onClick={toggleLike} className="photo-list--fav-icon">
       <div className="photo-list--fav-icon-svg">
-        {fav ? <FavBadge/> : <FavIcon/>}
+        <FavIcon fill={likedPhotos[id] ? "#C80000" : "#EEEEEE"}/>
       </div>
     </div>
   );
