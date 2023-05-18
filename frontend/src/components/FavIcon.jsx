@@ -12,7 +12,7 @@ export function FavIcon({
       }
     </svg>
   );
-}
+};
 
 FavIcon.defaultProps = {
   width: 20,
@@ -20,6 +20,6 @@ FavIcon.defaultProps = {
   fill: '#EEEEEE',
   outlineWidth: 2,
   stroke: '#C80000',
-}
+};
 
 export default FavIcon;
