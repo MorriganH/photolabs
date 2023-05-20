@@ -10,6 +10,8 @@ const App = () => {
 
   // const {state, toggleShowModal, setLikedPhotos} = useApplicationData();
 
+
+  //
   const [ modalShown, setModalShown ] = useState(false);
   const [ photoData, setPhotoData ] = useState();
   const [ likedPhotos, setLikedPhotos ] = useState({});
@@ -51,14 +53,16 @@ const App = () => {
   }
 
   useEffect(() => {
-    fetch(`/api/topics/photos/${filterID}`)
-    .then(response => {
-      return response.json();
-    })
-    .then(json => {
-      setFilteredPhotos(json);
-    })
-    .catch(e => console.log(e))
+    if (filterID) {
+      fetch(`/api/topics/photos/${filterID}`)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        setFilteredPhotos(json);
+      })
+      .catch(e => console.log(e))
+    }
   }, [filterID])
 
   const toggleShowModal = (id) => {

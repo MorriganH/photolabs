@@ -14,7 +14,7 @@ const PhotoDetailsModal = (props) => {
         <img className="photo-details-modal--image" src={photoData.urls.full}/>
         <p className="photo-details-modal--header">Similar Photos</p>
         <div className="photo-details-modal--images">
-          <PhotoList photos={similarArr} likedPhotos={likedPhotos} setLikedPhotos={setLikedPhotos} showModal={showModal} />
+          <PhotoList photos={similarArr} likedPhotos={likedPhotos} setLikedPhotos={setLikedPhotos} showModal={showModal} filteredPhotos={[]} />
         </div>
     </dialog>
     )
