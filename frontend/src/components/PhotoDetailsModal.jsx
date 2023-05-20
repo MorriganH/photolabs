@@ -1,6 +1,5 @@
 import React from "react";
 import PhotoList from "./PhotoList";
-import mockPhotos from "../mocks/photos";
 
 import '../styles/PhotoDetailsModal.scss'
 
@@ -8,7 +7,7 @@ const PhotoDetailsModal = (props) => {
   const { showModal, modalShown, photoData, likedPhotos, setLikedPhotos } = props;
   
   if (modalShown) {
-    const similarArr = Object.values(mockPhotos[photoData.id - 1].similar_photos)
+    const similarArr = photoData.similar_photos;
     return (
       <dialog open className='photo-details-modal' id='modal'>
         <button className='photo-details-modal--close-button' onClick={showModal}>X</button>
