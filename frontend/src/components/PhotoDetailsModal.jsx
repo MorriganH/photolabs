@@ -6,6 +6,7 @@ import '../styles/PhotoDetailsModal.scss'
 const PhotoDetailsModal = (props) => {
   const { showModal, modalShown, photoData, likedPhotos, setLikedPhotos } = props;
   
+  // generates modal only if modalShown state is true
   if (modalShown) {
     const similarArr = photoData.similar_photos;
     return (

@@ -6,6 +6,7 @@ import '../styles/PhotoFavButton.scss';
 function PhotoFavButton(props) {
   const { id, likedPhotos, setLikedPhotos } = props;
 
+  // adds/clears image id from the likedPhotos state
   const toggleLike = (event) => {
     event.stopPropagation();
     setLikedPhotos(prev => {
