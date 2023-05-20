@@ -3,10 +3,10 @@ import React from 'react';
 import '../styles/TopicListItem.scss'
 
 const TopicListItem = (props) => {
-  const {label, link} = props;
+  const {id, label, link, filterPhotos} = props;
   
   return (
-  <div className="topic-list--item">
+  <div className="topic-list--item" onClick={() => filterPhotos(id)}>
     <span>{label}</span>
 
   </div>

@@ -6,12 +6,12 @@ import PhotoList from './PhotoList';
 import '../styles/HomeRoute.scss';
 
 const HomeRoute = (props) => {
-  const { topics, photos, showModal, likedPhotos, setLikedPhotos } = props;
+  const { topics, photos, showModal, likedPhotos, setLikedPhotos, filterPhotos, filteredPhotos } = props;
 
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} likedPhotos={likedPhotos}/>
-      <PhotoList photos={photos} likedPhotos={likedPhotos} setLikedPhotos={setLikedPhotos} showModal={showModal}/>
+      <TopNavigation topics={topics} likedPhotos={likedPhotos} filterPhotos={filterPhotos} />
+      <PhotoList photos={photos} likedPhotos={likedPhotos} setLikedPhotos={setLikedPhotos} showModal={showModal} filteredPhotos={filteredPhotos} />
     </div>
   );
 };

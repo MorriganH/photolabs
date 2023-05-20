@@ -42,6 +42,24 @@ const App = () => {
 
   }, []);
 
+  const [filteredPhotos, setFilteredPhotos] = useState([]);
+  const [filterID, setFilterID] = useState('');
+
+
+  const filterPhotos = (id) => {
+    setFilterID(id);
+  }
+
+  useEffect(() => {
+    fetch(`/api/topics/photos/${filterID}`)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      setFilteredPhotos(json);
+    })
+    .catch(e => console.log(e))
+  }, [filterID])
 
   const toggleShowModal = (id) => {
     const photo = photos.find((photo) => photo.id === id);
@@ -54,7 +72,7 @@ const App = () => {
 
   return (
   <div className="App">
-    <HomeRoute topics={topics} photos={photos} showModal={toggleShowModal} likedPhotos={likedPhotos} setLikedPhotos={setLikedPhotos} />
+    <HomeRoute topics={topics} photos={photos} showModal={toggleShowModal} likedPhotos={likedPhotos} setLikedPhotos={setLikedPhotos} filterPhotos={filterPhotos} filteredPhotos={filteredPhotos} />
     <PhotoDetailsModal photoData={photoData} modalShown={modalShown} showModal={toggleShowModal} likedPhotos={likedPhotos} setLikedPhotos={setLikedPhotos} />
   </div>
   )
