@@ -6,7 +6,8 @@ import '../styles/PhotoFavButton.scss';
 function PhotoFavButton(props) {
   const { id, likedPhotos, setLikedPhotos } = props;
 
-  const toggleLike = () => {
+  const toggleLike = (event) => {
+    event.stopPropagation();
     setLikedPhotos(prev => {
       const newLiked = {...prev};
       if (newLiked[id] === true) {

@@ -1,12 +1,15 @@
 .photo-details-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   background-color: white;
   box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
   position: absolute;
-  top: 55%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -40%);
-  height: 80%;
-  width: 55%;
+  height: 95%;
+  width: 85%;
   overflow-y: scroll;
   border-radius: 12px;
 }
@@ -14,7 +17,7 @@
 .photo-details-modal--close-button {
   background-color: white;
   border: none;
-  color: white;
+  color: black;
   text-align: center;
   text-decoration: none;
   display: inline-block;

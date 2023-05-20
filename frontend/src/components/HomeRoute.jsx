@@ -6,16 +6,12 @@ import PhotoList from './PhotoList';
 import '../styles/HomeRoute.scss';
 
 const HomeRoute = (props) => {
-  const { topics, photos } = props;
-
-  const [ likedPhotos, setLikedPhotos ] = useState({});
-
-
+  const { topics, photos, showModal, likedPhotos, setLikedPhotos } = props;
 
   return (
     <div className="home-route">
       <TopNavigation topics={topics} likedPhotos={likedPhotos}/>
-      <PhotoList photos={photos} likedPhotos={likedPhotos} setLikedPhotos={setLikedPhotos}/>
+      <PhotoList photos={photos} likedPhotos={likedPhotos} setLikedPhotos={setLikedPhotos} showModal={showModal}/>
     </div>
   );
 };
