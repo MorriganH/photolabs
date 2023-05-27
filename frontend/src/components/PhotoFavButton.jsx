@@ -6,18 +6,10 @@ import '../styles/PhotoFavButton.scss';
 function PhotoFavButton(props) {
   const { id, likedPhotos, setLikedPhotos } = props;
 
-  // adds/clears image id from the likedPhotos state
+  // stops click on like from activating modal and updates likedPhotos state
   const toggleLike = (event) => {
     event.stopPropagation();
-    setLikedPhotos(prev => {
-      const newLiked = {...prev};
-      if (newLiked[id] === true) {
-        newLiked[id] = null;
-      } else {
-        newLiked[id] = true;
-      }
-      return newLiked;
-    });
+    setLikedPhotos(id);
   };
 
   return (
