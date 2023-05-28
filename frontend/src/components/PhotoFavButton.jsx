@@ -4,12 +4,12 @@ import { FavIcon } from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
 function PhotoFavButton(props) {
-  const { id, likedPhotos, setLikedPhotos } = props;
+  const { id, likedPhotos, dispatch } = props;
 
   // stops click on like from activating modal and updates likedPhotos state
   const toggleLike = (event) => {
     event.stopPropagation();
-    setLikedPhotos(id);
+    dispatch({type: "LIKE_PHOTO", payload: id});
   };
 
   return (

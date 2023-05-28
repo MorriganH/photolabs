@@ -7,12 +7,12 @@ import './App.scss';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  const {state, toggleShowModal, setLikedPhotos, filterPhotos} = useApplicationData();
+  const {state, dispatch} = useApplicationData();
 
   return (
   <div className="App">
-    <HomeRoute topics={state.topics} photos={state.photos} showModal={toggleShowModal} likedPhotos={state.likedPhotos} setLikedPhotos={setLikedPhotos} filterPhotos={filterPhotos} filteredPhotos={state.filteredPhotos} />
-    <PhotoDetailsModal photoData={state.photoData} modalShown={state.modalShown} showModal={toggleShowModal} likedPhotos={state.likedPhotos} setLikedPhotos={setLikedPhotos} />
+    <HomeRoute topics={state.topics} photos={state.photos} likedPhotos={state.likedPhotos} dispatch={dispatch} filteredPhotos={state.filteredPhotos} />
+    <PhotoDetailsModal photoData={state.photoData} modalShown={state.modalShown} likedPhotos={state.likedPhotos} dispatch={dispatch} />
   </div>
   )
 };

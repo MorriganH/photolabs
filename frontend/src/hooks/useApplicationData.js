@@ -18,20 +18,61 @@ const useApplicationData = () => {
     filteredPhotos: [],
     filterID: "",
   };
-  const [state, setState] = useState(initialState);
 
-  // const state = {
-  //   modalShown,
-  //   photoData,
-  //   likedPhotos,
-  //   photos,
-  //   topics,
-  //   filteredPhotos,
-  //   filterID,
-  // };
+  const labsReducer = (state, action) => {
+    switch (action.type) {
+      case "LOAD_PHOTOS_AND_TOPICS":
+        const loadState = { ...state };
+        loadState.photos = action.payload.photos;
+        loadState.topics = action.payload.topics;
+        return loadState;
+
+      case "FILTER_ID":
+        const filterState = { ...state };
+        filterState.filterID = action.payload;
+        return filterState;
+
+      case "LOAD_FILTERED_PHOTOS":
+        const loadFilteredPhotos = { ...state };
+        loadFilteredPhotos.filteredPhotos = action.payload;
+        return loadFilteredPhotos;
+
+      case "SHOW_MODAL":
+        const showModal = { ...state };
+        const photo = showModal.photos.find(
+          photo => photo.id === action.payload.id
+        );
+        showModal.modalShown = true;
+        showModal.photoData = photo;
+        return showModal;
+
+      case "CLOSE_MODAL":
+        const closeModal = { ...state };
+        closeModal.modalShown = false;
+        closeModal.photoData = undefined;
+        return closeModal;
+
+      case "LIKE_PHOTO":
+        const likePhoto = { ...state };
+        console.log(likePhoto.likedPhotos[action.payload] ? true : false);
+
+        let like;
+        if (likePhoto.likedPhotos[action.payload]) {
+          like = null;
+        } else {
+          like = true;
+        }
+        console.log(like);
+        likePhoto.likedPhotos[action.payload] = like;
+        return likePhoto;
+    }
+  };
+
+  const [state, dispatch] = useReducer(labsReducer, initialState);
 
   // fetches photos and topics from the database, only runs once after first load
   useEffect(() => {
+    let loadState = {};
     fetch("/api/photos", {
       method: "GET",
     })
@@ -39,78 +80,39 @@ const useApplicationData = () => {
         return response.json();
       })
       .then(json => {
-        // setPhotos(json);
-        setState({ ...state, photos: json });
+        loadState.photos = json;
       })
-      .catch(e => console.log(e));
-
-    fetch("/api/topics", {
-      method: "GET",
-    })
+      .then(() => {
+        return fetch("/api/topics", {
+          method: "GET",
+        });
+      })
       .then(response => {
         return response.json();
       })
       .then(json => {
-        // setTopics(json);
-        setState({ ...state, topics: json });
+        loadState.topics = json;
+        dispatch({ type: "LOAD_PHOTOS_AND_TOPICS", payload: loadState });
       })
+
       .catch(e => console.log(e));
   }, []);
 
-  // gets the id of the category that the user clicked
-  const filterPhotos = id => {
-    // setFilterID(id);
-    setState({ ...state, filterID: id });
-  };
-
   // fetches photos of a certain category from the database
   useEffect(() => {
-    if (filterID) {
-      fetch(`/api/topics/photos/${filterID}`)
+    if (state.filterID) {
+      fetch(`/api/topics/photos/${state.filterID}`)
         .then(response => {
           return response.json();
         })
         .then(json => {
-          // setFilteredPhotos(json);
-          setState({ ...state, filteredPhotos: json });
+          dispatch({ type: "LOAD_FILTERED_PHOTOS", payload: json });
         })
         .catch(e => console.log(e));
     }
-  }, [filterID]);
+  }, [state.filterID]);
 
-  // toggles the modal to be displayed or removed when the user clicks an image, or the X icon in the modal
-  function toggleShowModal(id) {
-    const photo = state.photos.find(photo => photo.id === id);
-    // setModalShown(state.modalShown ? false : true);
-    // setPhotoData(photo);
-    setState({
-      ...state,
-      modalShown: id ? true : false,
-      photoData: photo,
-    });
-  }
-
-  // adds/clears image id from the likedPhotos state
-  function setLikedPhotos(id) {
-    // setLikedPhoto(prev => {
-    //   const newLiked = { ...prev };
-    //   if (newLiked[id] === true) {
-    //     newLiked[id] = null;
-    //   } else {
-    //     newLiked[id] = true;
-    //   }
-    //   return newLiked;
-    // });
-    setState({
-      ...state,
-      likedPhotos: {
-        ...state.likedPhotos,
-        id: state.likedPhotos[id] ? null : true,
-      },
-    });
-  }
-
-  return { state, toggleShowModal, setLikedPhotos, filterPhotos };
+  return { state, dispatch };
 };
 
 export default useApplicationData;
