@@ -9,7 +9,7 @@ function PhotoFavButton(props) {
   // stops click on like from activating modal and updates likedPhotos state
   const toggleLike = (event) => {
     event.stopPropagation();
-    dispatch({type: "LIKE_PHOTO", payload: id});
+    dispatch({type: "LIKE_PHOTO", payload: {id, status: likedPhotos[id] ? null : true}});
   };
 
   return (

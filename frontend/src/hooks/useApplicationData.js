@@ -53,17 +53,8 @@ const useApplicationData = () => {
         return closeModal;
 
       case "LIKE_PHOTO":
-        const likePhoto = { ...state };
-        console.log(likePhoto.likedPhotos[action.payload] ? true : false);
-
-        let like;
-        if (likePhoto.likedPhotos[action.payload]) {
-          like = null;
-        } else {
-          like = true;
-        }
-        console.log(like);
-        likePhoto.likedPhotos[action.payload] = like;
+        const likePhoto = { ...state };        
+        likePhoto.likedPhotos[action.payload.id] = action.payload.status;
         return likePhoto;
     }
   };
